@@ -1,118 +1,114 @@
-# FinGuard — Transaction Fraud Detection & Customer Intelligence Platform
+<div align="center">
+  <h1>🛡️ FinGuard</h1>
+  <p><strong>Transaction Fraud Detection & Customer Intelligence Platform</strong></p>
+  <p><em>CP-03 | Sharda University Data Science & Generative AI Programme</em></p>
+</div>
 
-**CP-03 | Sharda University Data Science & Generative AI Programme**
+<hr />
 
-## Problem Statement
+## 🎯 Problem Statement
 
-Fraudulent transactions make up well under 1% of activity. A model that predicts "not fraud" for every transaction achieves 99.83% accuracy and catches nothing. Detection systems must balance fraud caught against legitimate customers blocked—both sides carry cost. FinGuard addresses this by building a full-stack fraud detection and investigation platform that operates under severe class imbalance.
+Fraudulent transactions make up well under 1% of activity. A model that predicts "not fraud" for every transaction achieves 99.83% accuracy but catches nothing. Detection systems must balance fraud caught against legitimate customers blocked—both sides carry a significant cost. 
 
-## Approach
+**FinGuard** addresses this by building a full-stack fraud detection and investigation platform tailored to operate effectively under severe class imbalance.
 
-1. **Data Augmentation**: The Kaggle credit card fraud dataset (`mlg-ulb/creditcardfraud`) contains ~284,807 real transactions with PCA-anonymized features but no relational structure. We augment it with synthetic dimensions (customer IDs, merchants, channels, devices) to create realistic relational data while preserving the original fraud signal.
+## 🚀 Approach
 
-2. **Feature Engineering**: Time-of-day, day-of-week, rolling per-customer aggregates, velocity measures, and anomaly flags.
+1. **Data Augmentation**: We utilize the Kaggle credit card fraud dataset (`mlg-ulb/creditcardfraud`), which contains ~284,807 real transactions with PCA-anonymized features. We dynamically augment it with synthetic dimensions (customer IDs, merchants, channels, devices) to create a realistic relational structure while preserving the original, authentic fraud signal.
+2. **Feature Engineering**: Incorporates time-of-day, day-of-week, rolling per-customer aggregates, velocity measures, and anomaly flags.
+3. **Imbalance-Aware Modelling**: Three strategies are evaluated head-to-head (SMOTE, class weighting, threshold tuning) using PR-AUC as the primary metric.
+4. **Customer Segmentation**: Unsupervised K-Means clustering identifies behavioral personas, complemented by Isolation Forest anomaly detection.
+5. **RAG-Powered Investigation**: Employs policy document retrieval (ChromaDB) and a Gemini-powered Generative AI assistant to summarize cases, provide policy citations, and utilize tool calling to fetch live database records.
 
-3. **Imbalance-Aware Modelling**: Three strategies compared head-to-head (SMOTE, class weighting, threshold tuning), evaluated on PR-AUC.
+> 💡 **Note on Data**: Only the relational metadata is synthetically generated. The fraud signal (Class label) comes entirely from the original Kaggle dataset, satisfying the "public or synthetic data only" restriction.
 
-4. **Customer Segmentation**: K-Means clustering into named behavioral personas + Isolation Forest anomaly detection.
-
-5. **RAG-Powered Investigation**: Policy document retrieval (ChromaDB) + Gemini-powered case summaries with citations and tool calling.
-
-> **Documented Assumption**: Only the relational metadata (customer IDs, merchants, channels, devices) is synthetically generated. The fraud signal (Class label) comes entirely from the original Kaggle dataset. This stays within the brief's "public or synthetic data only" restriction.
-
-## Stack
+## 🛠️ Technology Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | React 18 + Vite + Tailwind CSS |
-| Backend | Node.js + Express |
-| Database | SQLite |
-| ML/Data | Python (pandas, scikit-learn, imbalanced-learn) |
-| Vector Store | ChromaDB |
-| LLM | Google Gemini (gemini-2.0-flash) |
+| **Frontend** | React 18, Vite, Tailwind CSS, Recharts |
+| **Backend** | Node.js, Express |
+| **Database** | SQLite (via `better-sqlite3`) |
+| **ML/Data** | Python (Pandas, Scikit-Learn, Imbalanced-Learn) |
+| **Vector Store**| ChromaDB |
+| **LLM** | Google Gemini (gemini-3.6-flash) |
 
-## Architecture
+## 🏗️ Architecture
 
-```
-┌─────────────────┐     ┌──────────────────┐     ┌────────────────────┐
-│   React Client   │────▶│  Express Server  │────▶│     SQLite DB      │
-│  (Vite + TW)     │     │   (Port 3001)    │     │  284K transactions │
-└─────────────────┘     │                  │     │  3K customers      │
-                        │  /api/dashboard  │     │  200 merchants     │
-                        │  /api/transactions│     └────────────────────┘
-                        │  /api/customers  │
-                        │  /api/assistant  │────▶ ChromaDB (policy docs)
-                        │                  │────▶ Gemini API (LLM)
-                        └──────────────────┘
+```mermaid
+graph LR
+    A[React Client] -->|/api/*| B(Express Server\nPort 3001)
+    B -->|SQL Queries| C[(SQLite DB)]
+    B -->|Similarity Search| D[(ChromaDB)]
+    B -->|Tool Calling & Chat| E((Gemini API))
 ```
 
-## Setup
+## ⚙️ Setup & Installation
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 18+ (Node.js 20+ recommended)
 - Python 3.10+
 - Kaggle account (for dataset download)
-- Google AI Studio API key (for Gemini)
+- Google AI Studio API key (for Gemini integration)
 
-### 1. Clone and configure
+### 1. Clone & Configure
 ```bash
 git clone https://github.com/<your-username>/finguard-fraud-detection.git
 cd finguard-fraud-detection
 cp .env.example .env
-# Edit .env with your API keys
+# Edit .env with your Gemini API key and Kaggle credentials
 ```
 
-### 2. Run Python pipeline
+### 2. Run Python Pipeline
 ```bash
 cd python
 pip install -r requirements.txt
-python data_pipeline.py     # Download + augment + feature engineer → SQLite
-python model_training.py    # Train models, evaluate, write scores to DB
-python segmentation.py      # Cluster customers, anomaly detection
-python analysis.py          # Statistical analysis + plots
+python data_pipeline.py     # Download, augment, and feature engineer → SQLite
+python model_training.py    # Train models, evaluate, and write scores
+python segmentation.py      # Cluster customers and detect anomalies
+python analysis.py          # Statistical analysis and plots
 python build_vectorstore.py # Build ChromaDB for RAG
 ```
 
-### 3. Start backend
+### 3. Start the Backend Server
 ```bash
 cd server
 npm install
 npm run dev
 ```
 
-### 4. Start frontend
+### 4. Start the Frontend Application
 ```bash
 cd client
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Navigate to `http://localhost:5173` to view the application!
 
-## Results
+## 📊 Key Results
 
 | Metric | Value |
 |--------|-------|
-| Dataset size | 284,807 transactions |
-| Fraud rate | ~0.17% |
-| Baseline accuracy (all-legit) | ~99.83% |
-| Best PR-AUC | See `python/outputs/evaluation_metrics.json` |
-| Imbalance strategies compared | SMOTE, class weighting, threshold tuning |
-| Customer segments | 4-6 named personas |
-| Policy documents indexed | 6 |
+| **Dataset size** | 284,807 transactions |
+| **Fraud rate** | ~0.17% |
+| **Baseline accuracy** | ~99.83% (all-legit prediction) |
+| **Best PR-AUC** | Evaluated locally (see `python/outputs/evaluation_metrics.json`) |
+| **Segments Found** | 4-6 named customer personas |
+| **Documents Indexed**| 6 Synthetic Policy Documents |
 
-## Functionality Checklist
+## ✅ Functionality Checklist
 
-- [x] Transaction scoring with a tunable decision threshold
-- [x] Investigator queue ranked by risk and value at risk
-- [x] Per-transaction explanation of the flag
-- [x] Customer segmentation with named personas
-- [x] Case summary generation with policy citations
-- [x] Assistant retrieves customer transaction history on request
+- [x] Transaction scoring with a tunable decision threshold.
+- [x] Investigator queue ranked by risk and value at risk.
+- [x] Per-transaction explanation of the fraud flag.
+- [x] Customer segmentation with named personas.
+- [x] RAG-powered case summary generation with policy citations.
+- [x] GenAI Assistant that retrieves customer transaction history on request.
 
-## Repository Structure
+## 📂 Repository Structure
 
-```
+```text
 ├── python/              # ML pipeline
 │   ├── data_pipeline.py
 │   ├── model_training.py
@@ -120,16 +116,17 @@ Open http://localhost:5173
 │   ├── analysis.py
 │   ├── build_vectorstore.py
 │   └── policy_docs/     # 6 synthetic policy documents
-├── server/              # Express backend
+├── server/              # Node.js/Express backend
 │   ├── routes/          # API endpoints
-│   └── lib/             # DB + Gemini clients
-├── client/              # React frontend
-│   └── src/pages/       # 5 page components
+│   └── lib/             # SQLite + Gemini logic
+├── client/              # React/Vite frontend
+│   └── src/pages/       # UI Components & Dashboards
 ├── sql/                 # Schema + analytical queries
 ├── notebooks/           # Executed Jupyter notebooks
-└── docs/                # Architecture + slides
+└── docs/                # Architecture diagrams + slides
 ```
 
-## Team
-
-Sharda University — Data Science & Generative AI Programme, CP-03
+<hr />
+<div align="center">
+  <p>Developed for Sharda University — Data Science & Generative AI Programme</p>
+</div>
