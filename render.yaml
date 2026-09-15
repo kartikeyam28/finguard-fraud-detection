@@ -3,7 +3,7 @@ services:
     name: finguard-server
     env: node
     buildCommand: "cd client && npm install --include=dev && npm run build && cd ../server && npm install"
-    startCommand: "cd server && node index.js"
+    startCommand: "cd server && npm start"
     envVars:
       - key: NODE_ENV
         value: production
