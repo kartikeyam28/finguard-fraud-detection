@@ -12,7 +12,7 @@ let model;
 if (API_KEY) {
   genAI = new GoogleGenerativeAI(API_KEY);
   model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
+    model: "gemini-3.6-flash",
   });
 }
 
@@ -77,7 +77,7 @@ async function generateWithTools(messages, systemInstruction) {
   }
 
   const chatModel = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
+    model: "gemini-3.6-flash",
     tools: tools,
     systemInstruction: { parts: [{ text: systemInstruction }] },
   });
