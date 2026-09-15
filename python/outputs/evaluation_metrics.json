@@ -1,0 +1,120 @@
+{
+  "smote": {
+    "pr_auc": 0.8397947636942515,
+    "roc_auc": 0.992278389971633,
+    "best_threshold": 0.4514453086067094,
+    "best_f1": 0.8410256360257727,
+    "precision": 0.845360824742268,
+    "recall": 0.8367346938775511,
+    "confusion_matrix": [
+      [
+        56849,
+        15
+      ],
+      [
+        16,
+        82
+      ]
+    ]
+  },
+  "class_weight": {
+    "pr_auc": 0.833179471718041,
+    "roc_auc": 0.9538783190541269,
+    "best_threshold": 0.2777820939265174,
+    "best_f1": 0.8497409276436952,
+    "precision": 0.8631578947368421,
+    "recall": 0.8367346938775511,
+    "confusion_matrix": [
+      [
+        56851,
+        13
+      ],
+      [
+        16,
+        82
+      ]
+    ]
+  },
+  "threshold_tuning": {
+    "pr_auc": 0.8295603092470751,
+    "roc_auc": 0.9842093702984851,
+    "best_threshold": 0.28008742619138904,
+    "best_f1": 0.8524590114186749,
+    "precision": 0.9176470588235294,
+    "recall": 0.7959183673469388,
+    "confusion_matrix": [
+      [
+        56857,
+        7
+      ],
+      [
+        20,
+        78
+      ]
+    ]
+  },
+  "best_strategy": "smote",
+  "pr_auc_explanation": "We evaluate using Precision-Recall AUC (PR-AUC) instead of ROC-AUC because the dataset has extreme class imbalance (~0.17% fraud). ROC-AUC measures the tradeoff between true positive rate and false positive rate. At low base rates, the false positive rate (FPR = FP / (FP + TN)) is deflated by the enormous number of true negatives, making even a mediocre model appear to have high ROC-AUC. PR-AUC directly measures the precision-recall tradeoff on the minority (fraud) class, which is what we actually care about: of the transactions we flag, how many are real fraud (precision), and of all real fraud, how many do we catch (recall). A random classifier achieves PR-AUC equal to the base rate (~0.0017), making improvements directly interpretable.",
+  "feature_importance": [
+    {
+      "feature": "V14",
+      "importance": 0.17721242839765347
+    },
+    {
+      "feature": "V10",
+      "importance": 0.1255999885605685
+    },
+    {
+      "feature": "V12",
+      "importance": 0.1079325507649493
+    },
+    {
+      "feature": "V17",
+      "importance": 0.06954356070920452
+    },
+    {
+      "feature": "V11",
+      "importance": 0.059415544266567435
+    },
+    {
+      "feature": "V7",
+      "importance": 0.05882998026843769
+    },
+    {
+      "feature": "V3",
+      "importance": 0.05125624321172073
+    },
+    {
+      "feature": "V4",
+      "importance": 0.04939535584552694
+    },
+    {
+      "feature": "V16",
+      "importance": 0.04512530262400236
+    },
+    {
+      "feature": "category_travel",
+      "importance": 0.02297980561921653
+    },
+    {
+      "feature": "V9",
+      "importance": 0.022565614895945666
+    },
+    {
+      "feature": "V2",
+      "importance": 0.02138869588651385
+    },
+    {
+      "feature": "channel_mobile",
+      "importance": 0.01791929795428895
+    },
+    {
+      "feature": "V18",
+      "importance": 0.015023299690132108
+    },
+    {
+      "feature": "V21",
+      "importance": 0.014077929157268187
+    }
+  ]
+}

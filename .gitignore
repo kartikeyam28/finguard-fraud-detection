@@ -1,6 +1,9 @@
 .env
 node_modules/
-python/outputs/
+python/outputs/*
+!python/outputs/transactions.db.gz
+!python/outputs/evaluation_metrics.json
+!python/outputs/customer_segments.json
 client/dist/
 __pycache__/
 *.pyc

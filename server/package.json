@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prestart": "cd ../python/outputs && if [ ! -f transactions.db ] && [ -f transactions.db.gz ]; then gunzip -k transactions.db.gz; fi",
     "start": "node index.js",
     "dev": "node --watch index.js"
   },
