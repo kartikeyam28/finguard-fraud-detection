@@ -207,8 +207,14 @@ def main():
     }
 
     output_path = OUTPUT_DIR / "analysis_results.json"
+    
+    class NpEncoder(json.JSONEncoder):
+        def default(self, obj):
+            if hasattr(obj, 'item'): return obj.item()
+            return super().default(obj)
+            
     with open(output_path, "w") as f:
-        json.dump(all_results, f, indent=2)
+        json.dump(all_results, f, indent=2, cls=NpEncoder)
 
     print(f"\nResults saved to {output_path}")
     print(f"Plots saved to {PLOTS_DIR}/")
