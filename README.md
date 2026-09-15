@@ -30,7 +30,6 @@ Fraudulent transactions make up well under 1% of activity. A model that predicts
 | ML/Data | Python (pandas, scikit-learn, imbalanced-learn) |
 | Vector Store | ChromaDB |
 | LLM | Google Gemini (gemini-2.0-flash) |
-| Deployment | Vercel (frontend) + Render (backend) |
 
 ## Architecture
 

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function Assistant() {
   const [messages, setMessages] = useState([]);
@@ -100,7 +101,9 @@ export default function Assistant() {
                   : "bg-white border border-gray-200 px-4 py-3"
               }`}
             >
-              <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
+              <div className="prose prose-sm prose-gray max-w-none leading-relaxed">
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              </div>
               {msg.citations?.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-gray-100">
                   <p className="text-xs text-gray-400 mb-1">Sources</p>

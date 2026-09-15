@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function InvestigatorQueue() {
   const [queue, setQueue] = useState([]);
@@ -141,8 +142,8 @@ export default function InvestigatorQueue() {
                   </ul>
                 </div>
               )}
-              <div className="whitespace-pre-wrap text-gray-700 text-xs leading-relaxed">
-                {caseSummary?.summary}
+              <div className="prose prose-sm prose-gray max-w-none leading-relaxed text-xs">
+                <ReactMarkdown>{caseSummary?.summary}</ReactMarkdown>
               </div>
               {caseSummary?.citations?.length > 0 && (
                 <div className="mt-3 pt-2 border-t border-gray-100">

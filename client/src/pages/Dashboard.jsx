@@ -94,7 +94,7 @@ export default function Dashboard() {
               <XAxis dataKey="channel" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v * 100).toFixed(1)}%`} />
               <Tooltip formatter={(v) => `${(v * 100).toFixed(3)}%`} />
-              <Bar dataKey="fraud_rate" fill="#000" />
+              <Bar dataKey="fraud_rate" fill="#3b82f6" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -108,7 +108,7 @@ export default function Dashboard() {
               <XAxis type="number" tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v * 100).toFixed(1)}%`} />
               <YAxis type="category" dataKey="category" tick={{ fontSize: 11 }} width={80} />
               <Tooltip formatter={(v) => `${(v * 100).toFixed(3)}%`} />
-              <Bar dataKey="fraud_rate" fill="#333" />
+              <Bar dataKey="fraud_rate" fill="#8b5cf6" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -122,7 +122,7 @@ export default function Dashboard() {
               <XAxis dataKey="date" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Line type="monotone" dataKey="fraud_rate_pct" stroke="#000" dot={false} strokeWidth={1.5} name="Fraud %" />
+              <Line type="monotone" dataKey="fraud_rate_pct" stroke="#ef4444" dot={false} strokeWidth={2} name="Fraud %" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -136,8 +136,8 @@ export default function Dashboard() {
               <XAxis dataKey="channel" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="total" fill="#666" name="Total" />
-              <Bar dataKey="fraud_count" fill="#000" name="Fraud" />
+              <Bar dataKey="total" fill="#94a3b8" name="Total" />
+              <Bar dataKey="fraud_count" fill="#ef4444" name="Fraud" />
             </BarChart>
           </ResponsiveContainer>
         </div>
