@@ -101,7 +101,7 @@ export default function Assistant() {
                   : "bg-white border border-gray-200 px-4 py-3"
               }`}
             >
-              <div className="prose prose-sm prose-gray max-w-none leading-relaxed">
+              <div className={`prose prose-sm max-w-none leading-relaxed ${msg.role === "user" ? "prose-invert" : "prose-gray"}`}>
                 <ReactMarkdown>{msg.content}</ReactMarkdown>
               </div>
               {msg.citations?.length > 0 && (
